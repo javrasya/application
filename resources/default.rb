@@ -54,6 +54,7 @@ attribute :symlink_before_migrate, :kind_of => Hash, :default => {}
 attribute :migrate, :kind_of => [TrueClass, FalseClass], :default => false
 attribute :migration_command, :kind_of => [String, NilClass], :default => nil
 attribute :packages, :kind_of => [Array, Hash], :default => []
+attribute :subdirectory, :kind_of => [String, NilClass], :default => '.'
 attribute :application_provider
 attr_reader :sub_resources
 

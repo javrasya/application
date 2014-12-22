@@ -143,7 +143,8 @@ def run_deploy(force = false)
     all_environments = ([new_resource.environment]+new_resource.sub_resources.map{|res| res.environment}).inject({}){|acc, val| acc.merge(val)}
     environment all_environments
     migrate new_resource.migrate
-    all_migration_commands = ([new_resource.migration_command]+new_resource.sub_resources.map{|res| res.migration_command}).select{|cmd| cmd && !cmd.empty?}
+    all_migration_commands = (["cd #{new_resource.subdirectory}",new_resource.migration_command]+new_resource.sub_resources.map{|res| res.migration_command}).select{|cmd| cmd && !cmd.empty?}
+
     migration_command all_migration_commands.join(' && ')
     restart_command do
       ([new_resource]+new_resource.sub_resources).each do |res|
