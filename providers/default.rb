@@ -79,6 +79,7 @@ def before_deploy
     recursive true
   end
 
+  Chef::Log.debug("Directory #{new_resource.path}/shared will be created")
   directory "#{new_resource.path}/shared" do
     owner new_resource.owner
     group new_resource.group
