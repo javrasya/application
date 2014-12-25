@@ -84,6 +84,7 @@ def before_deploy
     owner new_resource.owner
     group new_resource.group
     mode '0755'
+    recursive true
   end
 
   if new_resource.deploy_key
