@@ -54,6 +54,16 @@ action :restart do
 
 end
 
+action :use do
+  before_compile
+
+  new_resource.sub_resources.each do |resource|
+    resource.run_action :before_deploy
+  end
+
+  @new_resource.updated_by_last_action(true)
+end
+
 protected
 
 def before_compile
@@ -79,7 +89,7 @@ def before_deploy
     recursive true
   end
 
-  Chef::Log.debug("Directory #{new_resource.path}/shared will be created")
+  
   directory "#{new_resource.path}/shared" do
     owner new_resource.owner
     group new_resource.group
