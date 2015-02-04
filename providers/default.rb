@@ -57,10 +57,15 @@ end
 action :use do
   before_compile
 
-  new_resource.sub_resources.each do |resource|
-    resource.run_action :before_deploy
+  ruby_block "#{new_resource.name} before_deploy" do
+    block do
+      new_resource.sub_resources.each do |resource|
+        resource.run_action :before_deploy
+      end
+      callback(:before_deploy, new_resource.before_deploy)
+    end
   end
-
+  
   @new_resource.updated_by_last_action(true)
 end
 
