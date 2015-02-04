@@ -65,7 +65,6 @@ action :use do
       callback(:before_deploy, new_resource.before_deploy)
     end
   end
-  
   @new_resource.updated_by_last_action(true)
 end
 
